@@ -1,0 +1,13 @@
+@import "testimport";
+
+$red : #ff0;
+
+.foo {
+  display: flex;
+  color: $red;
+  background-color: red;
+}
+
+.bar {
+  transition: all ease .2s;
+}

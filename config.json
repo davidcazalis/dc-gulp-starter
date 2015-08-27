@@ -1,0 +1,11 @@
+{
+  "dev": "dev/",
+  "prod": "build/",
+  "styles" : {
+    "src" : [
+      "styles/**/*.scss"
+    ],
+    "dest" : "styles"
+  },
+  "browserslist" : ["> 5%", "last 2 versions", "ie 9"]
+}
