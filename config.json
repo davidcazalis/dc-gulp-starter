@@ -1,11 +1,15 @@
 {
-  "dev": "dev/",
-  "prod": "build/",
+  "prod": "./build/",
   "styles" : {
+    "src" : "./dev/styles/*.scss",
+    "dest" : "./dev/styles"
+  },
+  "templates" : {
     "src" : [
-      "styles/**/*.scss"
+      "./dev/views/*.jade",
+      "!./dev/views/_*.jade"
     ],
-    "dest" : "styles"
+    "dest" : "./dev/views"
   },
   "browserslist" : ["> 5%", "last 2 versions", "ie 9"]
 }
