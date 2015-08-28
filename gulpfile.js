@@ -17,10 +17,6 @@ var gulp = require('gulp'),
     jade = require("gulp-jade"),
     gulpif = require("gulp-if");
 
-// ==========================================================================
-// Tasks
-// ==========================================================================
-
 function clean(path, files) {
   gutil.log(gutil.colors.grey('Clean '+ files +' files.'));
   del([path + '/*.' + files]);
