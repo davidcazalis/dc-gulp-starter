@@ -11,5 +11,8 @@
     ],
     "dest" : "./dev/views"
   },
+  "scripts" : {
+    "src" : "./dev/scripts/*.js"
+  },
   "browserslist" : ["> 5%", "last 2 versions", "ie 9"]
 }

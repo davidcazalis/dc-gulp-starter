@@ -15,7 +15,8 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     sourcemaps = require('gulp-sourcemaps'),
     jade = require("gulp-jade"),
-    gulpif = require("gulp-if");
+    gulpif = require("gulp-if"),
+    jshint = require("gulp-jshint");
 
 function clean(path, files) {
   gutil.log(gutil.colors.grey('Clean '+ files +' files.'));
@@ -53,6 +54,14 @@ gulp.task('templates', function() {
     .pipe(browserSync.stream());
 });
 
+// JavaScripts things
+gulp.task('scripts', function() {
+  return gulp.src(config.scripts.src)
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('fail'))
+});
+
 // Create a server and watch files
 gulp.task('live', ['styles', 'templates'], function() {
   browserSync.init({
@@ -67,3 +76,4 @@ gulp.task('live', ['styles', 'templates'], function() {
   gulp.watch(config.templates.src, ['templates']);
   gulp.watch(config.templates.dest+'/*.html').on('change', browserSync.reload);
 });
+
