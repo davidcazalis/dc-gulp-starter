@@ -1,18 +1,19 @@
 {
   "prod": "./build/",
+  "libs": "./app/libs",
   "styles" : {
-    "src" : "./dev/styles/*.scss",
-    "dest" : "./dev/styles"
+    "src" : "./app/styles/*.scss",
+    "dest" : "./app/styles"
   },
   "templates" : {
     "src" : [
-      "./dev/views/*.jade",
-      "!./dev/views/_*.jade"
+      "./app/views/*.jade",
+      "!./app/views/_*.jade"
     ],
-    "dest" : "./dev/views"
+    "dest" : "./app/views"
   },
   "scripts" : {
-    "src" : "./dev/scripts/*.js"
+    "src" : "./app/scripts/*.js"
   },
   "browserslist" : ["> 5%", "last 2 versions", "ie 9"]
 }

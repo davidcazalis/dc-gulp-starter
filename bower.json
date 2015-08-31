@@ -1,0 +1,23 @@
+{
+  "name": "starter",
+  "version": "0.0.1",
+  "homepage": "https://github.com/davidcazalis/starter",
+  "authors": [
+    "David Cazalis <davidcazalis@gmail.com>",
+    "Axel Viger <screan.me@gmail.com>"
+  ],
+  "description": "Front-end boilerplate",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "modernizr": "~2.8.3"
+  }
+}
