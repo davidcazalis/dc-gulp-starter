@@ -77,3 +77,5 @@ gulp.task('live', ['styles', 'templates'], function() {
   gulp.watch(config.templates.dest+'/*.html').on('change', browserSync.reload);
 });
 
+// Tests
+gulp.task('test', ['styles', 'templates', 'scripts']);
