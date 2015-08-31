@@ -22,7 +22,6 @@
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.3.1",
     "gulp-batch": "^1.0.5",
-    "gulp-clean": "^0.3.1",
     "gulp-if": "^1.2.5",
     "gulp-jade": "^1.1.0",
     "gulp-jshint": "^1.11.2",
@@ -35,5 +34,8 @@
   },
   "dependencies": {
     "del": "^1.2.1"
+  },
+  "scripts": {
+    "test": "gulp"
   }
 }
