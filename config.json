@@ -22,8 +22,7 @@
     "dest" : "./app/scripts",
     "build" : "./build/scripts",
     "vendor" : [
-      "./app/libs/jquery/dist/jquery.js",
-      "./app/libs/modernizr/modernizr.js"
+      ""
     ],
     "app" : [
       ""
