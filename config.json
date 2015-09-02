@@ -1,7 +1,7 @@
 {
   "libs": "./app/libs",
   "styles" : {
-    "src" : "./app/assets/styles/*.scss",
+    "src" : "./app/assets/styles/**/*.scss",
     "dest" : "./app/assets/styles",
     "build" : "./build/assets/styles"
   },
@@ -15,7 +15,7 @@
   },
   "scripts" : {
     "src" : "./app/scripts/*.js",
-    "src" : "./app/scripts"
+    "build" : "./build/scripts"
   },
   "browserslist" : ["> 5%", "last 2 versions", "ie 9"]
 }

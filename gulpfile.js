@@ -67,7 +67,7 @@ gulp.task('scripts', function() {
 // Create a server and watch files
 gulp.task('live', function() {
   browserSync.init({
-    startPath: config.templates.dest+'/index.html',
+    startPath: config.templates.dest,
     server: {
       baseDir: './',
       directory: true
@@ -84,4 +84,4 @@ gulp.task('live', function() {
 gulp.task('test', ['styles', 'templates', 'scripts']);
 
 // Development task
-gulp.task('dev', ['styles', 'templates', 'scripts', 'live']);
+gulp.task('default', ['styles', 'templates', 'scripts', 'live']);
