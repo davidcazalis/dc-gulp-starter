@@ -14,8 +14,20 @@
     "build" : "./build/views"
   },
   "scripts" : {
-    "src" : "./app/scripts/*.js",
-    "build" : "./build/scripts"
+    "src" : [
+      "./app/scripts/*.js",
+      "!./app/scripts/vendor.js",
+      "!./app/scripts/app.js"
+    ],
+    "dest" : "./app/scripts",
+    "build" : "./build/scripts",
+    "vendor" : [
+      "./app/libs/jquery/dist/jquery.js",
+      "./app/libs/modernizr/modernizr.js"
+    ],
+    "app" : [
+      ""
+    ]
   },
   "browserslist" : ["> 5%", "last 2 versions", "ie 9"]
 }

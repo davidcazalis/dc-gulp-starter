@@ -18,6 +18,8 @@ var gulp = require('gulp'),
     jade = require('gulp-jade'),
     gulpif = require('gulp-if'),
     jshint = require('gulp-jshint'),
+    uglify = require('gulp-uglify'),
+    concat = require('gulp-concat'),
     run = require('gulp-run');
 
 function clean(path, files) {
@@ -57,12 +59,34 @@ gulp.task('templates', function() {
 });
 
 // JavaScripts things
-gulp.task('scripts', function() {
+gulp.task('scripts:hint', function() {
   return gulp.src(config.scripts.src)
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'))
+    .pipe(!options.production ? jshint('.jshintrc') : gutil.noop())
+    .pipe(!options.production ? jshint.reporter('jshint-stylish') : gutil.noop())
+    .pipe(!options.production ? jshint.reporter('fail') : gutil.noop())
 });
+
+gulp.task('scripts:vendor', function() {
+  return gulp.src(config.scripts.vendor)
+    .pipe(!options.production ? sourcemaps.init() : gutil.noop())
+    .pipe(concat('vendor.js'))
+    .pipe(sourcemaps.write())
+    .pipe(!options.production ? gutil.noop() : uglify({preserveComments: 'some'}))
+    .pipe(!options.production ? gulp.dest(config.scripts.dest) : gulp.dest(config.scripts.build))
+    .pipe(!options.production ? browserSync.stream() : gutil.noop());
+});
+
+gulp.task('scripts:app', function() {
+  return gulp.src(config.scripts.app)
+    .pipe(!options.production ? sourcemaps.init() : gutil.noop())
+    .pipe(concat('app.js'))
+    .pipe(sourcemaps.write())
+    .pipe(!options.production ? gutil.noop() : uglify({preserveComments: 'some'}))
+    .pipe(!options.production ? gulp.dest(config.scripts.dest) : gulp.dest(config.scripts.build))
+    .pipe(!options.production ? browserSync.stream() : gutil.noop());
+});
+
+gulp.task('scripts', ['scripts:hint', 'scripts:vendor', 'scripts:app']);
 
 // Create a server and watch files
 gulp.task('live', function() {
@@ -83,5 +107,8 @@ gulp.task('live', function() {
 // Tests
 gulp.task('test', ['styles', 'templates', 'scripts']);
 
-// Development task
-gulp.task('default', ['styles', 'templates', 'scripts', 'live']);
+// Development
+gulp.task('dev', ['styles', 'templates', 'scripts', 'live']);
+
+// Default
+gulp.task('default', ['styles', 'templates', 'scripts']);
