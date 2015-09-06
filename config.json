@@ -4,6 +4,20 @@
     "src" : "./app/assets/media/**/*",
     "dest" : "./build/assets/media"
   },
+  "icons" : {
+    "src" : "./app/assets/icons/*.svg",
+    "dest" : "./app/assets/icons",
+    "font" : {
+      "name" : "iconfont",
+      "template" : "templates/_component.iconfont.scss",
+      "path" : "../fonts/",
+      "class" : "icon"
+    }
+  },
+  "fonts" : {
+    "src" : "./app/assets/fonts",
+    "build" : "./build/assets/fonts"
+  },
   "styles" : {
     "src" : "./app/assets/styles/**/*.scss",
     "dest" : "./app/assets/styles",

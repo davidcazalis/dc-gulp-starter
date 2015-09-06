@@ -5,6 +5,8 @@ var config = require('./config.json');
 
 var browserSync = require('browser-sync').create(),
   del = require('del'),
+  pngquant = require('imagemin-pngquant'),
+  consolidate = require('gulp-consolidate'),
   options = require("minimist")(process.argv.slice(2));
 
 // Gulp
@@ -22,7 +24,7 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   run = require('gulp-run'),
   imagemin = require('gulp-imagemin'),
-  pngquant = require('imagemin-pngquant');
+  iconfont = require('gulp-iconfont');
 
 function clean(path, files) {
   gutil.log(gutil.colors.grey('Clean ' + files + ' files.'));
@@ -110,9 +112,11 @@ gulp.task('live', function() {
   gulp.watch(config.styles.src, ['styles']);
   gulp.watch(config.templates.src, ['templates']);
   gulp.watch(config.scripts.src, ['scripts']);
+  gulp.watch(config.icons.src, ['iconfont', 'styles']);
   gulp.watch(config.templates.dest + '/*.html').on('change', browserSync.reload);
 });
 
+// Images optimisation
 gulp.task('media', function() {
   return gulp.src(config.media.src)
     .pipe(gulpif(options.production, imagemin({
@@ -125,11 +129,36 @@ gulp.task('media', function() {
     .pipe(gulpif(options.production, gulp.dest(config.media.dest)));
 });
 
+// Create fonts from SVG icons
+gulp.task('iconfont', function() {
+  return gulp.src([config.icons.src])
+    .pipe(iconfont({
+      fontName: config.icons.font.name,
+      formats: ['ttf', 'eot', 'woff', 'svg']
+    }))
+    .on('glyphs', function(glyphs, options) {
+      gulp.src(config.icons.dest + '/' + config.icons.font.template)
+        .pipe(consolidate('lodash', {
+          glyphs: glyphs,
+          fontName: config.icons.font.name,
+          fontPath: config.icons.font.path,
+          className: config.icons.font.class
+        }))
+        .pipe(gulp.dest(config.styles.dest))
+        .pipe(!options.production ? browserSync.stream() : gutil.noop());
+    })
+    .pipe(gulp.dest(!options.production ? config.fonts.src : config.fonts.build))
+    .pipe(!options.production ? browserSync.stream() : gutil.noop());
+});
+
+// Assets
+gulp.task('assets', ['media', 'iconfont', 'styles']);
+
 // Tests
 gulp.task('test', ['styles', 'templates', 'scripts']);
 
 // Development
-gulp.task('dev', ['styles', 'templates', 'scripts', 'live']);
+gulp.task('dev', ['assets', 'templates', 'scripts', 'live']);
 
 // Default
 gulp.task('default', ['styles', 'templates', 'scripts', 'media']);
