@@ -1,9 +1,0 @@
-var foo = 'test';
-
-console.log(foo);
-
-console.log('foo');
-
-console.log('toto');
-
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby50ZXN0LmpzIiwiYmFyLnRlc3QuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FDTEE7QUFDQSIsImZpbGUiOiJhcHAuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgZm9vID0gJ3Rlc3QnO1xuXG5jb25zb2xlLmxvZyhmb28pO1xuXG5jb25zb2xlLmxvZygnZm9vJyk7XG4iLCJjb25zb2xlLmxvZygndG90bycpO1xuIl0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9
