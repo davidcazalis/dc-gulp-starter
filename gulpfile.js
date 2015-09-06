@@ -4,26 +4,28 @@
 var config = require('./config.json');
 
 var browserSync = require('browser-sync').create(),
-    del = require('del'),
-    options = require("minimist")(process.argv.slice(2));
+  del = require('del'),
+  options = require("minimist")(process.argv.slice(2));
 
 // Gulp
 var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    plumber = require('gulp-plumber'),
-    watch = require('gulp-watch'),
-    sass = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer'),
-    sourcemaps = require('gulp-sourcemaps'),
-    jade = require('gulp-jade'),
-    gulpif = require('gulp-if'),
-    jshint = require('gulp-jshint'),
-    uglify = require('gulp-uglify'),
-    concat = require('gulp-concat'),
-    run = require('gulp-run');
+  gutil = require('gulp-util'),
+  plumber = require('gulp-plumber'),
+  watch = require('gulp-watch'),
+  sass = require('gulp-sass'),
+  autoprefixer = require('gulp-autoprefixer'),
+  sourcemaps = require('gulp-sourcemaps'),
+  jade = require('gulp-jade'),
+  gulpif = require('gulp-if'),
+  jshint = require('gulp-jshint'),
+  uglify = require('gulp-uglify'),
+  concat = require('gulp-concat'),
+  run = require('gulp-run'),
+  imagemin = require('gulp-imagemin'),
+  pngquant = require('imagemin-pngquant');
 
 function clean(path, files) {
-  gutil.log(gutil.colors.grey('Clean '+ files +' files.'));
+  gutil.log(gutil.colors.grey('Clean ' + files + ' files.'));
   del([path + '/*.' + files]);
 }
 
@@ -37,12 +39,15 @@ gulp.task('styles', function() {
   return gulp.src(config.styles.src)
     .pipe(!options.production ? plumber() : gutil.noop())
     .pipe(!options.production ? sourcemaps.init() : gutil.noop())
-    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(sass({
+      outputStyle: 'compressed'
+    }).on('error', sass.logError))
     .pipe(autoprefixer({
-        browser: [config.browserslist],
-        cascade: false }))
+      browser: [config.browserslist],
+      cascade: false
+    }))
     .pipe(sourcemaps.write())
-    .pipe(!options.production ? gulp.dest (config.styles.dest) : gulp.dest (config.styles.build))
+    .pipe(!options.production ? gulp.dest(config.styles.dest) : gulp.dest(config.styles.build))
     .pipe(!options.production ? browserSync.stream() : gutil.noop());
 });
 
@@ -54,7 +59,7 @@ gulp.task('templates', function() {
     .pipe(jade({
       pretty: true
     }))
-    .pipe(!options.production ? gulp.dest (config.templates.dest) : gulp.dest (config.templates.build))
+    .pipe(!options.production ? gulp.dest(config.templates.dest) : gulp.dest(config.templates.build))
     .pipe(!options.production ? browserSync.stream() : gutil.noop());
 });
 
@@ -71,7 +76,9 @@ gulp.task('scripts:vendor', function() {
     .pipe(!options.production ? sourcemaps.init() : gutil.noop())
     .pipe(concat('vendor.js'))
     .pipe(sourcemaps.write())
-    .pipe(!options.production ? gutil.noop() : uglify({preserveComments: 'some'}))
+    .pipe(!options.production ? gutil.noop() : uglify({
+      preserveComments: 'some'
+    }))
     .pipe(!options.production ? gulp.dest(config.scripts.dest) : gulp.dest(config.scripts.build))
     .pipe(!options.production ? browserSync.stream() : gutil.noop());
 });
@@ -81,7 +88,9 @@ gulp.task('scripts:app', function() {
     .pipe(!options.production ? sourcemaps.init() : gutil.noop())
     .pipe(concat('app.js'))
     .pipe(sourcemaps.write())
-    .pipe(!options.production ? gutil.noop() : uglify({preserveComments: 'some'}))
+    .pipe(!options.production ? gutil.noop() : uglify({
+      preserveComments: 'some'
+    }))
     .pipe(!options.production ? gulp.dest(config.scripts.dest) : gulp.dest(config.scripts.build))
     .pipe(!options.production ? browserSync.stream() : gutil.noop());
 });
@@ -101,7 +110,19 @@ gulp.task('live', function() {
   gulp.watch(config.styles.src, ['styles']);
   gulp.watch(config.templates.src, ['templates']);
   gulp.watch(config.scripts.src, ['scripts']);
-  gulp.watch(config.templates.dest+'/*.html').on('change', browserSync.reload);
+  gulp.watch(config.templates.dest + '/*.html').on('change', browserSync.reload);
+});
+
+gulp.task('media', function() {
+  return gulp.src(config.media.src)
+    .pipe(gulpif(options.production, imagemin({
+      progressive: true,
+      svgoPlugins: [{
+        removeViewBox: false
+      }],
+      use: [pngquant()]
+    })))
+    .pipe(gulpif(options.production, gulp.dest(config.media.dest)));
 });
 
 // Tests
@@ -111,4 +132,4 @@ gulp.task('test', ['styles', 'templates', 'scripts']);
 gulp.task('dev', ['styles', 'templates', 'scripts', 'live']);
 
 // Default
-gulp.task('default', ['styles', 'templates', 'scripts']);
+gulp.task('default', ['styles', 'templates', 'scripts', 'media']);
