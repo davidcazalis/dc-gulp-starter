@@ -26,95 +26,18 @@ var gulp = require('gulp'),
   imagemin = require('gulp-imagemin'),
   iconfont = require('gulp-iconfont');
 
+
 function clean(path, files) {
   gutil.log(gutil.colors.grey('Clean ' + files + ' files.'));
   del([path + '/*.' + files]);
 }
 
 // ==========================================================================
-// Tasks
+// Tasks configuration
 // ==========================================================================
 
-// Compile Sass files into CSS
-gulp.task('styles', function() {
-  clean(config.styles.dest, 'css');
-  return gulp.src(config.styles.src)
-    .pipe(!options.production ? plumber() : gutil.noop())
-    .pipe(!options.production ? sourcemaps.init() : gutil.noop())
-    .pipe(sass({
-      outputStyle: 'compressed'
-    }).on('error', sass.logError))
-    .pipe(autoprefixer({
-      browser: [config.browserslist],
-      cascade: false
-    }))
-    .pipe(sourcemaps.write())
-    .pipe(!options.production ? gulp.dest(config.styles.dest) : gulp.dest(config.styles.build))
-    .pipe(!options.production ? browserSync.stream() : gutil.noop());
-});
-
-// Compile Jade files into HTML
-gulp.task('templates', function() {
-  clean(config.templates.dest, 'html');
-  return gulp.src(config.templates.src)
-    .pipe(!options.production ? plumber() : gutil.noop())
-    .pipe(jade({
-      pretty: true
-    }))
-    .pipe(!options.production ? gulp.dest(config.templates.dest) : gulp.dest(config.templates.build))
-    .pipe(!options.production ? browserSync.stream() : gutil.noop());
-});
-
-// JavaScripts things
-gulp.task('scripts:hint', function() {
-  return gulp.src(config.scripts.src)
-    .pipe(!options.production ? jshint('.jshintrc') : gutil.noop())
-    .pipe(!options.production ? jshint.reporter('jshint-stylish') : gutil.noop())
-    .pipe(!options.production ? jshint.reporter('fail') : gutil.noop())
-});
-
-gulp.task('scripts:vendor', function() {
-  return gulp.src(config.scripts.vendor)
-    .pipe(!options.production ? sourcemaps.init() : gutil.noop())
-    .pipe(concat('vendor.js'))
-    .pipe(sourcemaps.write())
-    .pipe(!options.production ? gutil.noop() : uglify({
-      preserveComments: 'some'
-    }))
-    .pipe(!options.production ? gulp.dest(config.scripts.dest) : gulp.dest(config.scripts.build))
-    .pipe(!options.production ? browserSync.stream() : gutil.noop());
-});
-
-gulp.task('scripts:app', function() {
-  return gulp.src(config.scripts.app)
-    .pipe(!options.production ? sourcemaps.init() : gutil.noop())
-    .pipe(concat('app.js'))
-    .pipe(sourcemaps.write())
-    .pipe(!options.production ? gutil.noop() : uglify({
-      preserveComments: 'some'
-    }))
-    .pipe(!options.production ? gulp.dest(config.scripts.dest) : gulp.dest(config.scripts.build))
-    .pipe(!options.production ? browserSync.stream() : gutil.noop());
-});
-
-gulp.task('scripts', ['scripts:hint', 'scripts:vendor', 'scripts:app']);
-
-// Create a server and watch files
-gulp.task('live', function() {
-  browserSync.init({
-    startPath: config.templates.dest,
-    server: {
-      baseDir: './',
-      directory: true
-    }
-  });
-
-  gulp.watch(config.styles.src, ['styles']);
-  gulp.watch(config.templates.src, ['templates']);
-  gulp.watch(config.scripts.src, ['scripts']);
-  gulp.watch(config.icons.src, ['iconfont', 'styles']);
-  gulp.watch(config.templates.dest + '/*.html').on('change', browserSync.reload);
-});
+// Assets
+// ==========================================================================
 
 // Images optimisation
 gulp.task('media', function() {
@@ -151,14 +74,107 @@ gulp.task('iconfont', function() {
     .pipe(!options.production ? browserSync.stream() : gutil.noop());
 });
 
-// Assets
+// CSS
+// ==========================================================================
+
+// Compile Sass files into CSS
+gulp.task('styles', function() {
+  clean(config.styles.dest, 'css');
+  return gulp.src(config.styles.src)
+    .pipe(!options.production ? plumber() : gutil.noop())
+    .pipe(!options.production ? sourcemaps.init() : gutil.noop())
+    .pipe(sass({
+      outputStyle: 'compressed'
+    }).on('error', sass.logError))
+    .pipe(autoprefixer({
+      browser: [config.browserslist],
+      cascade: false
+    }))
+    .pipe(sourcemaps.write())
+    .pipe(!options.production ? gulp.dest(config.styles.dest) : gulp.dest(config.styles.build))
+    .pipe(!options.production ? browserSync.stream() : gutil.noop());
+});
+
+// HTML
+// ==========================================================================
+
+// Compile Jade files into HTML
+gulp.task('templates', function() {
+  clean(config.templates.dest, 'html');
+  return gulp.src(config.templates.src)
+    .pipe(!options.production ? plumber() : gutil.noop())
+    .pipe(jade({
+      pretty: true
+    }))
+    .pipe(!options.production ? gulp.dest(config.templates.dest) : gulp.dest(config.templates.build))
+    .pipe(!options.production ? browserSync.stream() : gutil.noop());
+});
+
+// JavaScript
+// ==========================================================================
+
+// Verifying JavaScript files with jshint
+gulp.task('scripts:hint', function() {
+  return gulp.src(config.scripts.src)
+    .pipe(!options.production ? jshint('.jshintrc') : gutil.noop())
+    .pipe(!options.production ? jshint.reporter('jshint-stylish') : gutil.noop())
+    .pipe(!options.production ? jshint.reporter('fail') : gutil.noop())
+});
+
+// Concatenate external JavaScript files
+gulp.task('scripts:vendor', function() {
+  return gulp.src(config.scripts.vendor)
+    .pipe(!options.production ? sourcemaps.init() : gutil.noop())
+    .pipe(concat('vendor.js'))
+    .pipe(sourcemaps.write())
+    .pipe(!options.production ? gutil.noop() : uglify({
+      preserveComments: 'some'
+    }))
+    .pipe(!options.production ? gulp.dest(config.scripts.dest) : gulp.dest(config.scripts.build))
+    .pipe(!options.production ? browserSync.stream() : gutil.noop());
+});
+
+// Concatenate custom JavaScript files
+gulp.task('scripts:app', function() {
+  return gulp.src(config.scripts.app)
+    .pipe(!options.production ? sourcemaps.init() : gutil.noop())
+    .pipe(concat('app.js'))
+    .pipe(sourcemaps.write())
+    .pipe(!options.production ? gutil.noop() : uglify({
+      preserveComments: 'some'
+    }))
+    .pipe(!options.production ? gulp.dest(config.scripts.dest) : gulp.dest(config.scripts.build))
+    .pipe(!options.production ? browserSync.stream() : gutil.noop());
+});
+
+// Local
+// ==========================================================================
+
+// Create a server and watch files
+gulp.task('live', function() {
+  browserSync.init({
+    startPath: config.templates.dest,
+    server: {
+      baseDir: './',
+      directory: true
+    }
+  });
+
+  gulp.watch(config.styles.src, ['styles']);
+  gulp.watch(config.templates.src, ['templates']);
+  gulp.watch(config.scripts.src, ['scripts']);
+  gulp.watch(config.icons.src, ['iconfont', 'styles']);
+  gulp.watch(config.templates.dest + '/*.html').on('change', browserSync.reload);
+});
+
+// ==========================================================================
+// Tasks
+// ==========================================================================
+
 gulp.task('assets', ['media', 'iconfont', 'styles']);
+gulp.task('scripts', ['scripts:hint', 'scripts:vendor', 'scripts:app']);
 
-// Tests
 gulp.task('test', ['styles', 'templates', 'scripts']);
-
-// Development
 gulp.task('dev', ['assets', 'templates', 'scripts', 'live']);
 
-// Default
 gulp.task('default', ['styles', 'templates', 'scripts', 'media']);
