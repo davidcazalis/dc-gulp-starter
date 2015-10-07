@@ -1,12 +1,12 @@
 {
-  "libs": "./app/libs",
+  "libs": "app/libs",
   "media" : {
-    "src" : "./app/assets/media/**/*",
-    "dest" : "./build/assets/media"
+    "src" : "app/assets/media/**/*",
+    "dest" : "build/assets/media"
   },
   "icons" : {
-    "src" : "./app/assets/icons/*.svg",
-    "dest" : "./app/assets/icons",
+    "src" : "app/assets/icons/*.svg",
+    "dest" : "app/assets/icons",
     "font" : {
       "name" : "iconfont",
       "template" : "templates/_component.iconfont.scss",
@@ -15,35 +15,36 @@
     }
   },
   "fonts" : {
-    "src" : "./app/assets/fonts",
-    "build" : "./build/assets/fonts"
+    "src" : "app/assets/fonts",
+    "build" : "build/assets/fonts"
   },
   "styles" : {
-    "src" : "./app/assets/styles/**/*.scss",
-    "dest" : "./app/assets/styles",
-    "build" : "./build/assets/styles"
+    "src" : "app/assets/styles/**/*.{scss, sass}",
+    "dest" : "app/assets/styles",
+    "build" : "build/assets/styles"
   },
   "templates" : {
     "src" : [
-      "./app/views/*.jade",
-      "!./app/views/_*.jade"
+      "app/views/**/*.jade",
+      "!app/views/**/_*.jade"
     ],
-    "dest" : "./app/views",
-    "build" : "./build/views"
+    "dest" : "app/views",
+    "build" : "build/views"
   },
   "scripts" : {
     "src" : [
-      "./app/scripts/*.js",
-      "!./app/scripts/vendor.js",
-      "!./app/scripts/app.js"
+      "app/scripts/*.js",
+      "!app/scripts/vendor.js",
+      "!app/scripts/app.js"
     ],
-    "dest" : "./app/scripts",
-    "build" : "./build/scripts",
+    "dest" : "app/scripts",
+    "build" : "build/scripts",
     "vendor" : [
-      ""
+      "app/libs/jquery/dist/jquery.min.js",
+      "app/libs/modernizr/modernizr.js"
     ],
     "app" : [
-      ""
+      "app/scripts/main.js"
     ]
   },
   "browserslist" : ["> 5%", "last 2 versions", "ie 9"]

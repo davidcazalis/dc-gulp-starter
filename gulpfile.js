@@ -13,7 +13,6 @@ var browserSync = require('browser-sync').create(),
 var gulp = require('gulp'),
   gutil = require('gulp-util'),
   plumber = require('gulp-plumber'),
-  watch = require('gulp-watch'),
   sass = require('gulp-sass'),
   autoprefixer = require('gulp-autoprefixer'),
   sourcemaps = require('gulp-sourcemaps'),
@@ -22,10 +21,10 @@ var gulp = require('gulp'),
   jshint = require('gulp-jshint'),
   uglify = require('gulp-uglify'),
   concat = require('gulp-concat'),
-  run = require('gulp-run'),
+  data = require('gulp-data'),
   imagemin = require('gulp-imagemin'),
-  iconfont = require('gulp-iconfont');
-
+  iconfont = require('gulp-iconfont'),
+  bower = require('gulp-bower');
 
 function clean(path, files) {
   gutil.log(gutil.colors.grey('Clean ' + files + ' files.'));
@@ -70,8 +69,14 @@ gulp.task('iconfont', function() {
         .pipe(gulp.dest(config.styles.dest))
         .pipe(!options.production ? browserSync.stream() : gutil.noop());
     })
-    .pipe(gulp.dest(!options.production ? config.fonts.src : config.fonts.build))
+    .pipe(gulp.dest(config.fonts.src))
     .pipe(!options.production ? browserSync.stream() : gutil.noop());
+});
+
+// Copy fonts in build directory
+gulp.task('fonts', function() {
+  return gulp.src(config.fonts.src+'/**/*')
+    .pipe(!options.production ? gutil.noop() : gulp.dest(config.fonts.build+''))
 });
 
 // CSS
@@ -84,7 +89,7 @@ gulp.task('styles', function() {
     .pipe(!options.production ? plumber() : gutil.noop())
     .pipe(!options.production ? sourcemaps.init() : gutil.noop())
     .pipe(sass({
-      outputStyle: 'compressed'
+      outputStyle: 'compact'
     }).on('error', sass.logError))
     .pipe(autoprefixer({
       browser: [config.browserslist],
@@ -99,9 +104,13 @@ gulp.task('styles', function() {
 // ==========================================================================
 
 // Compile Jade files into HTML
+
 gulp.task('templates', function() {
   clean(config.templates.dest, 'html');
   return gulp.src(config.templates.src)
+    .pipe(data(function(file) {
+      return require('./config.json');
+    }))
     .pipe(!options.production ? plumber() : gutil.noop())
     .pipe(jade({
       pretty: true
@@ -118,7 +127,7 @@ gulp.task('scripts:hint', function() {
   return gulp.src(config.scripts.src)
     .pipe(!options.production ? jshint('.jshintrc') : gutil.noop())
     .pipe(!options.production ? jshint.reporter('jshint-stylish') : gutil.noop())
-    .pipe(!options.production ? jshint.reporter('fail') : gutil.noop())
+    .pipe(!options.production ? jshint.reporter('fail') : gutil.noop());
 });
 
 // Concatenate external JavaScript files
@@ -153,7 +162,7 @@ gulp.task('scripts:app', function() {
 // Create a server and watch files
 gulp.task('live', function() {
   browserSync.init({
-    startPath: config.templates.dest,
+    reloadOnRestart: true,
     server: {
       baseDir: './',
       directory: true
@@ -161,20 +170,31 @@ gulp.task('live', function() {
   });
 
   gulp.watch(config.styles.src, ['styles']);
-  gulp.watch(config.templates.src, ['templates']);
+  gulp.watch(config.templates.dest + '/**/*.jade', ['templates']);
+  gulp.watch(config.libs, ['scripts']);
   gulp.watch(config.scripts.src, ['scripts']);
   gulp.watch(config.icons.src, ['iconfont', 'styles']);
+  gulp.watch(config.styles.dest + '/*.css').on('change', browserSync.reload);
   gulp.watch(config.templates.dest + '/*.html').on('change', browserSync.reload);
+});
+
+// Dependencies
+// ==========================================================================
+
+// Install bower packages
+gulp.task('bower', function() {
+  return bower()
+    .pipe(gulp.dest(config.libs))
 });
 
 // ==========================================================================
 // Tasks
 // ==========================================================================
 
-gulp.task('assets', ['media', 'iconfont', 'styles']);
+gulp.task('assets', ['media', 'iconfont', 'styles', 'fonts']);
 gulp.task('scripts', ['scripts:hint', 'scripts:vendor', 'scripts:app']);
 
-gulp.task('test', ['styles', 'templates', 'scripts']);
-gulp.task('dev', ['assets', 'templates', 'scripts', 'live']);
+gulp.task('dev', ['bower','assets', 'templates', 'scripts', 'live']);
 
-gulp.task('default', ['styles', 'templates', 'scripts', 'media']);
+gulp.task('test', ['styles', 'templates', 'scripts']);
+gulp.task('default', ['bower','styles', 'templates', 'scripts', 'media']);

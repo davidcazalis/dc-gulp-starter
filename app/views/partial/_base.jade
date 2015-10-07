@@ -1,0 +1,15 @@
+block variables
+  include _variables
+
+doctype html
+html(class="no-js" lang="")
+  head
+    meta(charset='utf-8')
+    meta(http-equiv="x-ua-Compatible" content="ie=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(href="#{stylesPath}/app.css" media="screen" rel="stylesheet" type="text/css")
+
+  body
+    block main
+    block scripts
+      include _scripts
