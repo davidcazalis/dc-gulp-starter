@@ -174,7 +174,6 @@ gulp.task('live', function() {
   gulp.watch(config.libs, ['scripts']);
   gulp.watch(config.scripts.src, ['scripts']);
   gulp.watch(config.icons.src, ['iconfont', 'styles']);
-  gulp.watch(config.styles.dest + '/*.css').on('change', browserSync.reload);
   gulp.watch(config.templates.dest + '/*.html').on('change', browserSync.reload);
 });
 
