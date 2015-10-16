@@ -18,6 +18,9 @@
   ],
   "dependencies": {
     "jquery": "~2.1.4",
-    "modernizr": "2.7.2"
+    "modernizr": "2.7.2",
+    "fitvids": "https://github.com/davatron5000/FitVids.js.git",
+    "fastclick": "~1.0.6",
+    "normalize-css": "~3.0.3"
   }
 }

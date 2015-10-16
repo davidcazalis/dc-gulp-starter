@@ -24,6 +24,7 @@ var gulp = require('gulp'),
   data = require('gulp-data'),
   imagemin = require('gulp-imagemin'),
   iconfont = require('gulp-iconfont'),
+  shell = require('gulp-shell'),
   bower = require('gulp-bower');
 
 function clean(path, files) {
@@ -104,7 +105,6 @@ gulp.task('styles', function() {
 // ==========================================================================
 
 // Compile Jade files into HTML
-
 gulp.task('templates', function() {
   clean(config.templates.dest, 'html');
   return gulp.src(config.templates.src)
@@ -193,7 +193,8 @@ gulp.task('bower', function() {
 gulp.task('assets', ['media', 'iconfont', 'styles', 'fonts']);
 gulp.task('scripts', ['scripts:hint', 'scripts:vendor', 'scripts:app']);
 
-gulp.task('dev', ['bower','assets', 'templates', 'scripts', 'live']);
+gulp.task('default', ['bower','assets', 'templates', 'scripts']);
+gulp.task('test', ['default']);
 
-gulp.task('test', ['styles', 'templates', 'scripts']);
-gulp.task('default', ['bower','styles', 'templates', 'scripts', 'media']);
+gulp.task('dev', ['default', 'live']);
+gulp.task('prod', shell.task([ 'gulp default --production' ]));
