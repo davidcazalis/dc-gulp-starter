@@ -1,0 +1,21 @@
+doctype html
+html(class="no-js" lang="")
+  include core/_main
+  block head
+    head
+      block head_support
+        meta(charset='utf-8')
+        meta(http-equiv='x-ua-compatible' content='ie=edge')
+        meta(name='viewport' content='width=device-width, initial-scale=1')
+      block head_seo
+        title= name
+        meta(name="description" content="#{description}")
+      block head_style
+        link(href="#{cssFile}" media="screen" rel="stylesheet" type="text/css")
+      block head_favicons
+
+  body
+    block body_content
+    block body_script
+      script(src="#{jsFile}")
+    

@@ -1,0 +1,82 @@
+{
+  "root": {
+    "src": "./src",
+    "dest": "./build",
+    "gulp": "./gulp",
+    "tasks": "./gulp/tasks",
+    "public": "./public"
+  },
+  "tasks": {
+    "css": {
+      "src": "css",
+      "dest": "css",
+      "extensions": ["sass", "scss", "css"],
+      "main": "app.css",
+      "autoprefixer": {
+        "browsers": ["> 5%", "last 2 versions", "ie 9"]
+      }
+    },
+    "html": {
+      "src": "html",
+      "dest": "",
+      "extensions": ["jade", "md", "html"],
+      "jade": {
+        "pretty": true
+      }
+    },
+    "browserSync": {
+      "startPath": "/index.html",
+      "tunnel": false,
+      "reloadOnRestart": true,
+      "logLevel": "info",
+      "server": {
+        "baseDir": "build",
+        "directory": true
+      }
+    },
+    "scripts": {
+      "src": "js",
+      "dest": "js",
+      "extensions": ["js"],
+      "main": "main.js",
+      "browserify": {
+        "basedir": ".",
+        "debug": true,
+        "cache": {},
+        "packageCache": {},
+        "fullPaths": false
+      }
+    },
+    "bower": {
+      "src": "libs"
+    },
+    "fonts": {
+      "src": "fonts",
+      "dest": "fonts",
+      "extensions": ["*"]
+    },
+    "icons": {
+      "src": "icons",
+      "dest": "icons",
+      "extensions": ["svg"],
+      "class": "icon",
+      "iconfont": {
+        "svg": true,
+        "fontName": "icons",
+        "appendUnicode": true,
+        "formats": ["ttf", "eot", "woff", "woff2", "svg"],
+        "timestamp": 0
+      }
+    },
+    "sprites": {
+      "src": "sprites",
+      "dest": "sprites",
+      "extensions": ["svg"]
+    },
+    "images": {
+      "src": "img",
+      "dest": "img",
+      "extensions": ["svg", "png", "jpg", "gif"]
+    }
+  }
+}

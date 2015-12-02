@@ -219,8 +219,9 @@ pip-log.txt
 *.serverPort %>
 
 #############
-## Starter
+## gulp-starter
 #############
 
 *.test.*
-libs/
+public/
+build/

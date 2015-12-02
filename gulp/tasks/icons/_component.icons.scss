@@ -1,0 +1,45 @@
+// ==========================================================================
+// ICONS
+// ==========================================================================
+
+// <%= comment %>
+
+@font-face {
+  font-family: '<%= fontName %>';
+  src: url('<%= fontPath %><%= fontName %>.eot');
+  src: url('<%= fontPath %><%= fontName %>.eot?#iefix') format('eot'),
+       url('<%= fontPath %><%= fontName %>.woff') format('woff'),
+       url('<%= fontPath %><%= fontName %>.ttf') format('truetype'),
+       url('<%= fontPath %><%= fontName %>.svg#<%= fontName %>') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+%<%= className %>-base {
+  display: inline-block;
+  font-family: '<%= fontName %>';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  speak: none;
+  text-decoration: inherit;
+  text-transform: none;
+  text-rendering: optimizeLegibility;
+  vertical-align: middle;
+}
+
+$icons: (
+  <%= glyphs.map(function(glyph){ return glyph.name + ": '" + "\\" + glyph.unicode[0].charCodeAt(0).toString(16).toUpperCase() + "'" }).join(",\n  ") %>
+);
+
+[class*="<%= className %>--"]::before {
+  @extend %<%= className %>-base;
+}
+
+@each $name, $icon in $icons {
+  .<%= className %>--#{$name}::before {
+    content: $icon;
+  }
+}

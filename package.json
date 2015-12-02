@@ -1,53 +1,90 @@
 {
-  "name": "starter",
-  "description": "Yet another front-end boilerplate.",
-  "version": "0.0.1",
-  "license": "MIT",
-  "contributors": [
-    {
-      "name": "David Cazalis",
-      "email": "davidcazalis@gmail.com"
-    },
-    {
-      "name": "Axel Viger",
-      "email": "screan.me@gmail.com"
-    }
-  ],
+  "name": "dc-gulp-starter",
+  "version": "0.0.0",
+  "description": "A tiny gulp based starter kit for front-end voodoo.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/davidcazalis/starter.git"
+    "url": "https://github.com/davidcazalis/dc-gulp-starter"
   },
   "engines": {
-    "npm": "2.7.4",
-    "node" : ">=0.12.2"
+    "node": "0.12.2",
+    "npm": "2.7.4"
+  },
+  "scripts": {
+    "gulp": "gulp",
+    "development": "gulp build && gulp watch",
+    "build": "gulp build",
+    "production": "gulp release",
+    "demo": "gulp release && gulp live.release",
+    "validation": "gulp validation",
+    "vminor": "gulp bump",
+    "vmajor": "gulp bump.major",
+    "vpatch": "gulp bump.patch",
+    "vreset": "gulp bump.reset"
   },
   "devDependencies": {
     "browser-sync": "^2.8.2",
+    "browserify": "^12.0.1",
+    "browserify-shim": "^3.8.11",
+    "browsernizr": "^2.0.1",
+    "chalk": "^1.1.1",
     "del": "^1.2.1",
+    "fastclick": "^1.0.6",
+    "fitvids": "^1.0.2",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.3.1",
-    "gulp-bower": "0.0.10",
-    "gulp-concat": "^2.6.0",
+    "gulp-bower": "0.0.11",
+    "gulp-bump": "^1.0.0",
+    "gulp-bytediff": "^1.0.0",
+    "gulp-changed": "^1.3.0",
     "gulp-consolidate": "^0.1.2",
     "gulp-data": "^1.2.0",
+    "gulp-debug": "^2.1.2",
+    "gulp-fontmin": "^0.7.2",
+    "gulp-header": "^1.7.1",
+    "gulp-htmlhint": "^0.3.0",
     "gulp-iconfont": "^4.0.1",
-    "gulp-if": "^1.2.5",
-    "gulp-imagemin": "^2.3.0",
+    "gulp-imagemin": "^2.4.0",
     "gulp-jade": "^1.1.0",
     "gulp-jshint": "^1.11.2",
+    "gulp-minify-css": "^1.2.2",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
+    "gulp-prettify": "^0.3.0",
+    "gulp-pretty-data": "^0.1.1",
     "gulp-sass": "^2.0.4",
-    "gulp-shell": "^0.5.0",
+    "gulp-scss-lint": "^0.3.8",
+    "gulp-scss-lint-stylish": "^1.0.0",
+    "gulp-sequence": "^0.4.1",
+    "gulp-size": "^2.0.0",
     "gulp-sourcemaps": "^1.5.2",
-    "gulp-uglify": "^1.4.0",
+    "gulp-svgmin": "^1.2.0",
+    "gulp-svgstore": "^5.0.5",
+    "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.6",
-    "imagemin-pngquant": "^4.2.0",
+    "gulp-watch": "^4.3.5",
+    "htmlhint-stylish": "^1.0.3",
+    "imagemin-svgo": "^4.2.0",
+    "jquery": "^2.1.4",
     "jshint-stylish": "^2.0.1",
     "lodash": "^3.10.1",
-    "minimist": "^1.2.0"
+    "log-symbols": "^1.0.2",
+    "merge-stream": "^1.0.0",
+    "normalize.css": "^3.0.3",
+    "require-dir": "^0.3.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-paths": "^2.1.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.6.1"
   },
-  "scripts": {
-    "test": "gulp test"
+  "dependencies": {},
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
   },
-  "dependencies": {}
+  "browser": {},
+  "browserify-shim": {},
+  "license": "MIT"
 }
