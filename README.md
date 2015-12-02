@@ -1,5 +1,5 @@
 # dc-gulp-starter
-It's all in the title. A starter kit, based on Gulp, and mostly built to fit my needs.
+It's all in the title. A starter kit, based on Gulp, and mostly built to fit my needs. Heavily inspired by the delicious [gulp-starter](https://github.com/vigetlabs/gulp-starter). You should check it out if you want something more sophisticated.
 
 ## Features
 
@@ -24,7 +24,7 @@ It's all in the title. A starter kit, based on Gulp, and mostly built to fit my 
 	* Demo mode, with local server on `./public` folder and public URL to share with [localtunnel.me](http://localtunnel.me/).
 * **Validation:**
 	* Lint CSS, JS and HTML files.
-	
+
 ## Installation
 	git clone https://github.com/davidcazalis/dc-gulp-starter.git superDuperProject
 	cd superDuperProject
