@@ -1,12 +1,47 @@
 # dc-gulp-starter
 It's all in the title. A starter kit, based on Gulp, and mostly built to fit my needs.
 
+## Features
+
+* **HTML:** Built with [Jade](http://jade-lang.com/)
+	* Variables stored in `package.json` and `./gulp/config.json`
+* **CSS:** Built with [Sass](http://sass-lang.com/) (Libsass)
+	* Autoprefixer
+* **Images:**
+	* SVG Sprite create from SVGs in `src/sprites`
+* **JS:**
+	* Bundle create with [Browserify](http://	browserify.org/)
+	* Uglify
+* **Fonts:**
+	* Icon fonts create from SVGs in `src/icons`
+* **Development:**
+	* Source maps
+	* Local server, watch and hotload with [BrowserSync]	(http://www.browsersync.io/)
+* **Production:**
+	* Assets minified and optimized (Fonts, JavaScript, CSS and images)
+	* Add banner on JS and CSS, with last build date and version
+	* Increment version in `package.json` and `bower.json`
+	* Demo mode, with local server on `./public` folder and public URL to share with [localtunnel.me](http://localtunnel.me/).
+* **Validation:**
+	* Lint CSS, JS and HTML files.
+	
+## Installation
+	git clone https://github.com/davidcazalis/dc-gulp-starter.git superDuperProject
+	cd superDuperProject
+	npm install
+	npm run build
+
 ## Default structure
 
-	├── src			// sources files
-	├── build		// build files
-	├── public	// production-ready files
-	└── gulp		// gulp config and tasks
+	├── src
+	├── build
+	├── public
+	└── gulp
+
+* `src` Sources files
+* `build` Compiled files
+* `public` Production-ready files
+* `gulp` Gulp configurations files and tasks
 
 ## Tasks
 
