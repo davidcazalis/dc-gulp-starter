@@ -16,6 +16,7 @@ It's all in the title. A starter kit, based on Gulp, and mostly built to fit my 
 	* Icon fonts create from SVGs in `src/icons`
 * **Development:**
 	* Source maps
+	* Error desktop notifications
 	* Local server, watch and hotload with [BrowserSync]	(http://www.browsersync.io/)
 * **Production:**
 	* Assets minified and optimized (Fonts, JavaScript, CSS and images)

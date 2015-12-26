@@ -55,7 +55,7 @@ var browserifyTask = function() {
     logAlert('Bundle generated in', 'info', prettyTime);
   });
 
-  browserifyBundle(b);
+  return browserifyBundle(b);
 
 }
 
@@ -63,7 +63,7 @@ var browserifyTaskBuild = function() {
 
   var b = browserify(settings.entry, config.tasks.scripts.browserify);
 
-  browserifyBundle(b);
+  return browserifyBundle(b);
 
 }
 
