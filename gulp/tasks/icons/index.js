@@ -20,7 +20,7 @@ var iconsTask = function() {
     options: config.tasks.icons.iconfont,
     fontPath: path.relative(path.join(config.root.dest, config.tasks.css.dest), path.join(config.root.dest, config.tasks.fonts.dest))+'/',
     className: config.tasks.icons.class,
-    template: path.normalize(path.join(config.root.tasks, '/iconfont/_component.icons.scss'))
+    template: path.normalize(path.join(config.root.tasks, '/icons/_component.icons.scss'))
   }
 
   logAlert('Creating icon fonts.', 'info', settings.dest);
