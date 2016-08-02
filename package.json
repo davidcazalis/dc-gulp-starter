@@ -1,9 +1,6 @@
 {
   "name": "dc-gulp-starter",
   "version": "0.0.1",
-  "scripts": {
-    "postinstall": "find node_modules -type f -name '*.info' | xargs rm"
-  },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "babel-preset-es2015": "^6.9.0",
