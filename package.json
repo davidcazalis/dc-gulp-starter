@@ -2,7 +2,8 @@
   "name": "dc-gulp-starter",
   "version": "0.0.1",
   "scripts": {
-    "start": "bower install && gulp --env development"
+    "start": "bower install && gulp --env development",
+    "build": "gulp --env production"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
