@@ -32,7 +32,6 @@ var bowerTask = function () {
 var bowerBundleJsTask = function() {
   return gulp.src(mainBowerFiles({
       paths: {
-        bowerDirectory: './bower_components',
         bowerrc: './.bowerrc',
         bowerJson: './bower.json'
       }

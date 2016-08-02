@@ -17,7 +17,7 @@ var defaultTask = function (cb) {
   var views = ['templates'];
   var style = ['stylesheets'];
   var js = ['browserify'];
-  var live = ['browsersync'];
+  var live = dev() ? ['browsersync'] : '';
 
   return gulpSequence(clean, assets, style, js, views, live, cb);
 
