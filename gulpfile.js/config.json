@@ -1,0 +1,82 @@
+{
+  "root": {
+    "src": "./src",
+    "dest": "./public",
+    "gulp": "./gulpfile.js",
+    "bower": "bower_components"
+  },
+  "tasks": {
+    "stylesheets": {
+      "src": "styles",
+      "dest": "styles",
+      "extensions": ["css", "pcss"],
+      "browsers": ["> 5%", "last 2 versions", "ie 8"]
+    },
+    "sass": {
+      "src": "styles",
+      "dest": "styles",
+      "extensions": ["sass", "scss"]
+    },
+    "postcss": {
+      "src": "styles",
+      "dest": "styles",
+      "extensions": ["css", "pcss"]
+    },
+    "templates": {
+      "src": "templates",
+      "dest" : "templates",
+      "extensions": ["md", "pug", "html", "json"],
+      "pug": {
+        "pretty": true
+      },
+      "mustache": {
+        "src": "templates",
+        "dest": "templates",
+        "extensions": ["mustache", "md"]
+      }
+    },
+    "js": {
+      "src": "js",
+      "dest": "js",
+      "extensions": "app.**.js",
+      "browserify": {
+        "bundle": ".bundle.js",
+        "options": {
+          "basedir": ".",
+          "debug": true,
+          "cache": {},
+          "packageCache": {},
+          "fullPaths": false
+        }
+      }
+    },
+    "browserSync": {
+      "startPath": "templates",
+      "tunnel": false,
+      "reloadOnRestart": true,
+      "logLevel": "info",
+      "reloadDelay" : 500,
+      "server": {
+        "baseDir": "./public",
+        "directory": false
+      }
+    },
+    "sprites": {
+      "src": "gfx/svg-sprites",
+      "dest": "gfx",
+      "extensions": "svg"
+    },
+    "gfx": {
+      "src": "gfx",
+      "dest": "gfx",
+      "extensions": ["png", "jpg", "gif"]
+    },
+    "libs": {
+      "dest": "libs"
+    },
+    "fonts": {
+      "src": "fonts",
+      "dest": "fonts"
+    }
+  }
+}

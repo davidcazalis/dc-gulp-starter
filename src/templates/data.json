@@ -1,0 +1,15 @@
+{
+  "app" : {
+    "title": "Prototype",
+    "description": "This is an awesome prototype.",
+    "paths" : {
+      "styles" : [
+        { "file": "../styles/main.css" }
+      ],
+      "scripts": [
+        { "file" : "../js/app.main.bundle.js" },
+        { "file" : "../libs/app.libs.js" }
+      ]
+    }
+  }
+}

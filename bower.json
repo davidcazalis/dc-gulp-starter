@@ -1,20 +1,19 @@
 {
   "name": "dc-gulp-starter",
-  "version": "0.0.1",
-  "homepage": "https://github.com/davidcazalis/dc-gulp-starter",
   "authors": [
     "David Cazalis <davidcazalis@gmail.com>"
   ],
-  "description": "A tiny gulp based starter kit for front-end voodoo.",
   "license": "MIT",
+  "homepage": "",
+  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "app/libs",
     "test",
     "tests"
   ],
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "jquery": "^2.0.0"
+  }
 }

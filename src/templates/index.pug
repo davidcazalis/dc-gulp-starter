@@ -1,0 +1,46 @@
+doctype html
+html(class="no-js")
+  head
+    block head
+      meta(charset='utf-8')
+      meta(http-equiv='x-ua-compatible' content='ie=edge')
+      meta(name='viewport' content='width=device-width, initial-scale=1')
+      title.
+        {{app.title}}
+      meta(name="description" content="{{app.description}}")
+
+      //- Load global stylesheets
+      block head_styles
+        .
+          {{#app.paths.styles}}
+            <link href="{{& file}}" media="screen, print" rel="stylesheet" type="text/css" />
+          {{/app.paths.styles}}
+  body
+
+    //- Include generated SVG sprite.
+    //- You can call any SVG in the sprite with the 'use' element  :
+    //- <svg viewBox="0 0 100 100">
+    //-   <use xlink:href="#icon-logo-facebook"></use>
+    //- </svg>
+
+    //- Or in jade/pug :
+    //- svg(viewBox="0 0 100 100")
+    //-   use(xlink:href="#icon-logo-facebook")
+
+    //- Or with a jade/pug mixin :
+    //- +sprite("icon-logo-facebook")
+    include partials/svg-sprite
+
+    //- Content
+    block body
+      h1.foo.
+        {{app.title}}
+
+      span.button Foo
+
+    //- Load scripts
+    block body_scripts
+      .
+        {{#app.paths.scripts}}
+          <script src="{{& file}}" ></script>
+        {{/app.paths.scripts}}

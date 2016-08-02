@@ -1,6 +1,0 @@
-linters:
-  PropertySortOrder:
-    enabled: false
-
-  FinalNewline:
-    enabled: false

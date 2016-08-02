@@ -1,0 +1,9 @@
+div(style="display: none;")
+  include ../../../public/gfx/sprite.svg
+
+
+//- Use SVG sprite
+//- @param  {string} id The symbol's ID you want to call from sprite.svg
+mixin sprite(id)
+  svg(viewBox="0 0 100 100")
+    use(xlink:href="#"+id)
